@@ -1,0 +1,42 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: NBA Greatest Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+paths:
+  /players:
+    get:
+      operationId: player.read_all
+      tags:
+        - Players
+      summary: Read the entire data set of players
+      description: Read the entire data set of players
+      responses:
+        200:
+          description: Successfully read players set operation
+          schema:
+            type: array
+            items:
+              properties:
+                player_id:
+                  type: string
+                  description: Id of the player
+                jersey_no:
+                  type: string
+                  description: Jersey number of the player
+                fname:
+                  type: string
+                  description: First name of the player
+                lname:
+                  type: string
+                  description: Last name of the player
+                timestamp:
+                  type: string
+                  description: Creation timestamp of the player
