@@ -1,7 +1,6 @@
 import os
 from config import db
-from models import Person
-from note_model import Note
+from models import Person, Note
 # Data to initialize database with
 
 PEOPLE = [
@@ -40,7 +39,8 @@ for person in PEOPLE:
         content, timestamp = note
         p.notes.append(
             Note(content=content,
-                 timestamp=datetime.strptime(timestamp, % Y - %m - %d % H: % M: % S),
+                 timestamp=datetime.strptime(
+                     timestamp, "%Y - %m - %d %H: %M: %S"),
                  ))
     db.session.add(p)
 db.session.commit()

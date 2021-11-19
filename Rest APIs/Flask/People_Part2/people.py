@@ -22,9 +22,9 @@ def read_all():
 
     # Serialize the data for the response
     # passes the parameter many=True telling it to expect an
-    # iterable to serialize 
+    # iterable to serialize
     person_schema = PersonSchema(many=True)
-    # dump function converts the object from sqlalchemy to 
+    # dump function converts the object from sqlalchemy to
     # an object that has data attributes, that can be converted to JSON
     data = person_schema.dump(people)
     return data
@@ -40,7 +40,8 @@ def read_one(person_id):
     # Get the person requested
     # .person_id is a SQLAlchemy query filter method to search
     # for a person with person_id matching the passed in person_id
-    person = Person.query.filter(Person.person_id == person_id).one_or_none()
+    person = (Person.query.filter(Person.person_id ==
+                                  person_id).outerjoin(Note).one_or_none())
 
     # Did we find a person?
     if person is not None:
