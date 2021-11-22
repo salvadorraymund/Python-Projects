@@ -1,3 +1,5 @@
+
+from datetime import datetime
 import os
 from config import db
 from models import Person, Note
@@ -40,7 +42,7 @@ for person in PEOPLE:
         p.notes.append(
             Note(content=content,
                  timestamp=datetime.strptime(
-                     timestamp, "%Y - %m - %d %H: %M: %S"),
+                     timestamp, "%Y-%m-%d %H:%M:%S"),
                  ))
     db.session.add(p)
 db.session.commit()
