@@ -13,8 +13,9 @@ class Person(db.Model):
     timestamp = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     notes = db.relationship(
+        # 'Note' is the name of the class that initializes the db for notes
         'Note',
-        backref='person',
+        # backref='person',
         cascade='all, delete, delete-orphan',
         single_parent=True,
         order_by='desc(Note.timestamp)')
@@ -44,6 +45,8 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     notes = fields.Nested("PersonNoteSchema", default=[], many=True)
 
 # defines what a Note object looks like as Marshmallow serializes the notes list
+
+
 class PersonNoteSchema(ma.SQLAlchemyAutoSchema):
     """
     This class exists to get around a recurssion issue
@@ -54,6 +57,8 @@ class PersonNoteSchema(ma.SQLAlchemyAutoSchema):
     timestamp = fields.Str()
 
 # defines what a Note object looks like in terms of Marshmallow
+
+
 class NoteSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Note
@@ -64,6 +69,8 @@ class NoteSchema(ma.SQLAlchemyAutoSchema):
     person = fields.Nested("NotePersonSchema", default=None)
 
 # defines what is nested in the NoteSchema.person attribute
+
+
 class NotePersonSchema(ma.SQLAlchemyAutoSchema):
     """
     This class exists to get around a recurssion issue

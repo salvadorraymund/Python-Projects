@@ -85,16 +85,17 @@ def update(person_id, note_id, note):
         schema = NoteSchema()
 
         # Set the ids to the note we want to update
-        update = schema.load(note, session=db.session).data
+        # the method load deserializes data structure to an object
+        update = schema.load(note, session=db.session)
         update.person_id = update_note.person_id
-        update.note_id = update.note.note_id
+        update.note_id = update_note.note_id
 
         # merge the new object into the old and commit it to the db
         db.session.merge(update)
         db.session.commit()
 
         # return updated note in the response
-        data = schema.dump(update_note).data
+        data = schema.dump(update_note)
         return data, 200
     else:
         abort(404, f'Note not found for ID: {person_id}')
