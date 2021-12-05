@@ -36,9 +36,13 @@ db.create_all()
 
 # Iterate over the PEOPLE structure and populate the databse
 for person in PEOPLE:
+    # p in here is classified as a transient object of the class Person
     p = Person(lname=person['lname'], fname=person['fname'])
     for note in person.get('notes'):
         content, timestamp = note
+        # p is now an instance of the Person class
+        # Person class has an attribute notes that establishes the relationship
+        # between Person and Note models
         p.notes.append(
             Note(content=content,
                  timestamp=datetime.strptime(
